@@ -1,8 +1,8 @@
-"""initial migration
+"""backpropagate reviews on employees
 
-Revision ID: 71cca8b2bb40
+Revision ID: a2f891c3ba1d
 Revises: 
-Create Date: 2024-10-07 12:10:56.689703
+Create Date: 2024-10-07 12:28:18.300409
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '71cca8b2bb40'
+revision = 'a2f891c3ba1d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -34,6 +34,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('year', sa.Integer(), nullable=True),
     sa.Column('summary', sa.String(), nullable=True),
+    sa.Column('employee_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['employee_id'], ['employees.id'], name=op.f('fk_reviews_employee_id_employees')),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
